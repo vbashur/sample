@@ -4,9 +4,9 @@ package com.vbashur;
  * Created by victor.bashurov on 12.09.2017.
  * https://leetcode.com/problems/validate-ip-address/description/
  *
- * 
+ *
  */
-public class S03_ValidateIp {
+public class S03_J_ValidateIp {
 
     public String validIPAddress(String IP) {
 
