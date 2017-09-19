@@ -22,6 +22,7 @@ public class S07_J_ContainsDuplicate2 {
         for (int iter = 0; iter < nums.length; ++iter) {
             if (indiciesMap.containsKey(nums[iter])) {
                 List<Integer> inds = indiciesMap.get(nums[iter]);
+                if (inds.get(inds.size() -1) + k >= iter)
                 for (Integer i : inds) {
                     Integer absDiff = Math.abs(iter - i);
                     if (absDiff == k) return true;
