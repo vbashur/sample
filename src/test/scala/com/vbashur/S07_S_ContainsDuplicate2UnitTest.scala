@@ -10,6 +10,7 @@ class S07_S_ContainsDuplicate2UnitTest {
   @Test
   def simpleTest = {
 
+    S07_S_ContainsDuplicate2.expr
     Assert.assertTrue(S07_S_ContainsDuplicate2.containsNearbyDuplicate(Array(1,2,1), 2))
     Assert.assertFalse(S07_S_ContainsDuplicate2.containsNearbyDuplicate(Array(1,2,1), 1))
 
