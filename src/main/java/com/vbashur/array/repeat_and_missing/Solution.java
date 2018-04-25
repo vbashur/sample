@@ -26,18 +26,16 @@ public class Solution {
         for (int iter = 0; iter < A.size(); ++iter) {
             mult *= A.get(iter);
         }
-        if (mult > factorial && mult % factorial == 0) {
-            factorial = factorial / (mult/factorial);
+
+        Long duplicatedNum = lcm(factorial, mult) / factorial;
+
+        Long actualSum = Long.valueOf(0);
+        for (int iter = 0; iter < A.size(); ++iter) {
+            actualSum += A.get(iter);
         }
-
-
-        else if (factorial > mult && factorial % mult== 0) {
-            mult = mult / (factorial/mult);
-        }
-
-
-
-        return new ArrayList<Integer>(Arrays.asList(gcd(mult, factorial).intValue()));
+        Long expectedSum = getExpectedSum(A.size());
+        Long missedNum = expectedSum - actualSum + duplicatedNum;
+        return new ArrayList<>(Arrays.asList(duplicatedNum.intValue(), missedNum.intValue()));
     }
 
     public long getFact(long limit) {
@@ -45,9 +43,24 @@ public class Solution {
         return limit * getFact(limit - 1);
     }
 
+    public long getExpectedSum(long limit) {
+        if (limit == 0) return limit;
+        return limit + getExpectedSum(limit - 1);
+    }
+
+    /*
+    The greatest common divisor
+     */
     public Long gcd(long a, long b) {
         if (b == 0) return a;
         return gcd(b, a % b);
+    }
 
+    /*
+    Least common multiple
+     */
+    public Long lcm(long a, long b) {
+        Long gcd = gcd(a, b);
+        return Math.abs(a * b) / gcd;
     }
 }
