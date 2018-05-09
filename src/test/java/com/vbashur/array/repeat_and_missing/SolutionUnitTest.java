@@ -1,10 +1,9 @@
 package com.vbashur.array.repeat_and_missing;
 
+import java.util.Arrays;
+
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by vic on 4/25/18.

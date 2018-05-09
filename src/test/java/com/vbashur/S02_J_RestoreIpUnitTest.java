@@ -1,9 +1,9 @@
 package com.vbashur;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.List;
 
 /**
  * Created by victor.bashurov on 11.09.2017.

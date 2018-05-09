@@ -10,17 +10,21 @@ public class Solution {
 
     public int uniquePaths(int A, int B) {
         if (A == 0 || B == 0) return 0;
-        int less = A < B ? A : B;
+        if (A == 1 || B == 1) return 1;
+        int less = (A < B ? A : B) - 1;
         int combLength = A + B - 2;
-        double maxCombsNum = Math.pow(2, combLength);
-        int counter = 0;
-        for (int iter = 1; iter <= maxCombsNum; ++iter) {
-            String binString = Integer.toBinaryString(iter);
-            if (containsPath(binString, less - 1)) {
-                counter += 1;
-            }
-        }
-        return counter;
+//        double maxCombsNum = Math.pow(2, combLength);
+//        int counter = 0;
+//
+//        for (int iter = 1; iter <= maxCombsNum; ++iter) {
+//            if (containsPath(iter, less)) {
+//                counter += 1;
+//            }
+//        }
+        long c = getFactBound(combLength, combLength - less + 1);
+        long b = getFactBound(less,1);
+        return (int)(c/b);
+//        return (int)(getFact(combLength) / (getFact(less) * getFact(combLength - less)));
 
     }
 
@@ -35,6 +39,28 @@ public class Solution {
             }
         }
         return counter == pathCount;
+    }
+
+    private static boolean containsPath(Integer num, int pathCount) {
+        int counter = 0;
+        while (num != 0 && counter <= pathCount) {
+            if ((num & 1) == 1) {
+                ++counter;
+            }
+            num = num >> 1;
+
+        }
+        return counter == pathCount;
+    }
+
+    private static long getFact(int num) {
+        if (num == 1) return 1;
+        else return num * getFact(num - 1);
+    }
+
+    private static long getFactBound(int num, int bound) {
+        if (num == bound) return bound;
+        else return num * getFactBound(num - 1, bound);
     }
 
 

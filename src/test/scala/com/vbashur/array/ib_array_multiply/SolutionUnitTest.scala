@@ -1,7 +1,7 @@
 package com.vbashur.array.ib_array_multiply
 
 //import array.ib_array_multiply.Solution
-import org.junit.{Assert, Test}
+import org.junit.Test
 
 //import org.junit.{Assert, Test}
 

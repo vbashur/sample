@@ -1,11 +1,10 @@
 package com.vbashur;
 
+import static org.junit.Assert.assertNotEquals;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-
-import static org.junit.Assert.assertNotEquals;
 
 /**
  * Unit test for simple AppHelloWorldJava.

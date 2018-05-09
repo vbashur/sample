@@ -1,11 +1,6 @@
 package com.vbashur.array.max_non_negative;
 
-import javafx.util.Pair;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by vic on 4/18/18.
