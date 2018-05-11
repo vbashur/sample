@@ -1,12 +1,9 @@
 package com.vbashur.math.palindrome_integer;
 
-import javax.swing.text.MutableAttributeSet;
-
 /**
  * Created by vic on 5/11/18.
- *
+ * <p>
  * https://www.interviewbit.com/problems/palindrome-integer/
- *
  */
 public class Solution {
 
@@ -20,14 +17,18 @@ public class Solution {
             ++degree;
         }
 
-        while (size > 0) {
+        while (size > 0 && A > 9) {
             double base = Math.pow(10, size - 1);
-            int digit = (int)(A / base);
-            A = A - (int)(base * digit) - digit;
-            --size;
+            int digitFirst = (int) (A / base);
+            int digitLast = A % 10;
+            if (digitFirst != digitLast) {
+                return 0;
+            }
+            A -= (digitFirst * base + digitLast);
+            A = A / 10;
+            size -= 2;
         }
-
-        return A;
+        return 1;
 
     }
 }
