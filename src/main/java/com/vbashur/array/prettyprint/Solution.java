@@ -42,7 +42,9 @@ public class Solution {
         }
         int distX = Math.abs(centralIndex - x);
         int distY = Math.abs(centralIndex - y);
-        double dist = Math.sqrt((distY * distY) + (distX * distX));
+//        double dist = Math.sqrt((distY * distY) + (distX * distX));
+//        double dist = Math.hypot(x - centralIndex, y - centralIndex);
+        double dist = Math.hypot(centralIndex - x , centralIndex - y);
         return (int)dist + 1;
     }
 }
