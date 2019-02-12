@@ -2,8 +2,6 @@ package com.vbashur.heaps_maps.mergesortedlists;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.PriorityQueue;
 
 import com.vbashur.common.ListNode;
@@ -29,39 +27,35 @@ import com.vbashur.common.ListNode;
  */
 public class Solution {
 
-    public class IntegerDescComparator implements Comparator<Integer> {
+    public class IntegerAscComparator implements Comparator<Integer> {
         public int compare( Integer a, Integer b ) {
-            return b.compareTo( a );
+            return a.compareTo( b );
         }
     }
 
     public ListNode mergeKLists( ArrayList<ListNode> a ) {
 
-        List<Integer> nodeValues = new LinkedList<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>( new IntegerAscComparator() );
         for( ListNode list : a ) {
             ListNode item = list;
             while( item != null ) {
-                nodeValues.add( item.val );
+                pq.add( item.val );
                 item = item.next;
             }
         }
 
-        PriorityQueue<Integer> pq = new PriorityQueue<>( nodeValues.size(), new IntegerDescComparator() );
-        for( Integer val : nodeValues ) {
-            pq.add( val );
-        }
-        Integer top = pq.poll();
-        ListNode resListNode = new ListNode( top );
-        while( top != null ) {
+        ListNode prevNode = null, firstNode = null;
+        while( !pq.isEmpty() ) {
             Integer next = pq.poll();
-            if( next == null ) {
-                top = null;
+            ListNode tmpNode = new ListNode( next );
+            if( firstNode == null ) {
+                prevNode = new ListNode( next );
+                firstNode = prevNode;
             } else {
-                ListNode tmpNode = new ListNode( next );
-                tmpNode.next = resListNode;
-                resListNode = tmpNode;
+                prevNode.next = tmpNode;
+                prevNode = tmpNode;
             }
         }
-        return resListNode;
+        return firstNode;
     }
 }
