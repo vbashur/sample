@@ -36,7 +36,7 @@ Note that the left child of all nodes should be NULL.
 import com.vbashur.common.TreeNode;
 
 /*
- * Created by vic on 13/02/19.
+ * Created by vic on 14/02/19.
  * <p>
  * https://www.interviewbit.com/problems/flatten-binary-tree-to-linked-list/
  */
