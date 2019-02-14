@@ -11,7 +11,16 @@ public class TreeNode {
         right = null;
     }
 
-    public static void printTree(TreeNode node) {
+    @Override
+    public String toString() {
+        return "TreeNode{" +
+                "val=" + val +
+                ", left=" + left +
+                ", right=" + right +
+                '}';
+    }
+
+    public static void printTree( TreeNode node) {
         System.out.print( node.val );
         if (node.left != null) {
             System.out.print(" L->" + node.left.val );
