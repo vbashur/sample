@@ -112,7 +112,10 @@ public class Solution {
         for (Cell recCell : recordedCells) {
             int Y = cell.row - recCell.row;
             int X = cell.col - recCell.col;
-            if ((Math.toDegrees(Math.atan2( Y, X )) % 45) == 0)
+//            if ((Math.toDegrees(Math.atan2( Y, X )) % 45) == 0)
+//                return true;
+            if (Math.abs( X) == Math.abs( Y )
+                    || X == 0 )
                 return true;
         }
         return false;

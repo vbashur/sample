@@ -9,6 +9,9 @@ public class SolutionTest {
     @Test
     public void solveNQueens() {
         Solution s = new Solution();
-        System.out.println(s.solveNQueens( 4 ));
+        System.out.println(s.solveNQueens( 5 ));
+        //[....Q ..Q.. Q.... ...Q. .Q... ] [....Q .Q... ...Q. Q.... ..Q.. ] [...Q. .Q... ....Q ..Q.. Q.... ] [...Q. Q.... ..Q.. ....Q .Q... ] [..Q.. ....Q .Q... ...Q. Q.... ] [..Q.. Q.... ...Q. .Q... ....Q ] [.Q... ....Q ..Q.. Q.... ...Q. ] [.Q... ...Q. Q.... ..Q.. ....Q ] [Q.... ...Q. .Q... ....Q ..Q.. ] [Q.... ..Q.. ....Q .Q... ...Q. ]
+        System.out.println("expected");
+        System.out.println("[....Q ..Q.. Q.... ...Q. .Q... ] [....Q .Q... ...Q. Q.... ..Q.. ] [...Q. .Q... ....Q ..Q.. Q.... ] [...Q. Q.... ..Q.. ....Q .Q... ] [..Q.. ....Q .Q... ...Q. Q.... ] [..Q.. Q.... ...Q. .Q... ....Q ] [.Q... ....Q ..Q.. Q.... ...Q. ] [.Q... ...Q. Q.... ..Q.. ....Q ] [Q.... ...Q. .Q... ....Q ..Q.. ] [Q.... ..Q.. ....Q .Q... ...Q. ]");
     }
 }
