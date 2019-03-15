@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,4 +26,12 @@ public class SolutionTest {
         Assert.assertEquals( 3, s.removeDuplicates( input ) );
     }
 
+    @Test
+    public void removeDuplicates() {
+//        List<Integer> input = Arrays.asList(  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3  );
+        List<Integer> input = Arrays.asList(  0, 0, 1, 1, 2, 2, 3, 3 );
+        Assert.assertEquals( 4, s.removeDuplicates( new ArrayList<>( input) ) );
+        System.out.println( input );
+
+    }
 }
