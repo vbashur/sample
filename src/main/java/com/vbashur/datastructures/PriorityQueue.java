@@ -85,18 +85,18 @@ public class PriorityQueue<T extends Comparable> {
     }
 
     private int getSubtreeMaxElementIndex(int rootIndex) {
-        T left = rootIndex * 2 > items.size() ? items.get(rootIndex * 2) : null;
-        T right = rootIndex * 2 + 1 > items.size() ? items.get(rootIndex * 2 + 1) : null;
+        T left = rootIndex * 2 < items.size() ? items.get(rootIndex * 2) : null;
+        T right = rootIndex * 2 + 1 < items.size() ? items.get(rootIndex * 2 + 1) : null;
         T root = items.get(rootIndex);
         int maxElementIndex = rootIndex;
         if (left != null && right != null) {
-            maxElementIndex = left.compareTo(right) > 0 ? rootIndex * 2 : rootIndex * 2 + 1;
+            maxElementIndex = comparator.compare(left, right) > 0 ? rootIndex * 2 : rootIndex * 2 + 1;
         } else if (left != null) {
             maxElementIndex = rootIndex * 2;
         } else if (right != null) {
             maxElementIndex = rootIndex * 2  + 1;
         }
-        return items.get(rootIndex).compareTo(items.get(maxElementIndex)) > 0 ? rootIndex : maxElementIndex;
+        return comparator.compare(items.get(rootIndex), items.get(maxElementIndex)) > 0 ? rootIndex : maxElementIndex;
     }
 
 
