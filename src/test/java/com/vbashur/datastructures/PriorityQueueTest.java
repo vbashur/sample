@@ -2,7 +2,11 @@ package com.vbashur.datastructures;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -41,21 +45,33 @@ public class PriorityQueueTest {
                 return (-1) * o1.compareTo( o2 );
             }
         } );
-        pq.add("q");
-        pq.add("e");
-        pq.add("v");
-        pq.add("a");
-        pq.add("p");
-        Assert.assertEquals( "a", pq.peek());
-        Assert.assertEquals( "a", pq.peek());
-        Assert.assertEquals(String.valueOf( "a"), pq.poll());
-        Assert.assertEquals(String.valueOf( "e"), pq.poll());
-        Assert.assertEquals(String.valueOf( "p"), pq.poll());
-        Assert.assertEquals(String.valueOf( "q"), pq.poll());
-        Assert.assertEquals(String.valueOf( "v"), pq.poll());
-        Assert.assertNull(pq.poll());
-        Assert.assertNull(pq.poll());
+        pq.add( "q" );
+        pq.add( "e" );
+        pq.add( "v" );
+        pq.add( "a" );
+        pq.add( "p" );
+        Assert.assertEquals( "a", pq.peek() );
+        Assert.assertEquals( "a", pq.peek() );
+        Assert.assertEquals( String.valueOf( "a" ), pq.poll() );
+        Assert.assertEquals( String.valueOf( "e" ), pq.poll() );
+        Assert.assertEquals( String.valueOf( "p" ), pq.poll() );
+        Assert.assertEquals( String.valueOf( "q" ), pq.poll() );
+        Assert.assertEquals( String.valueOf( "v" ), pq.poll() );
+        Assert.assertNull( pq.poll() );
+        Assert.assertNull( pq.poll() );
+    }
 
+    @Test
+    public void pqBulkSort() {
+        List<Integer> list = Arrays.asList(1,2,3,4,5,6);
+        List<? extends Comparable> sorted = PriorityQueue.sort( new Comparator<Integer>() {
+            @Override
+            public int compare( Integer o1, Integer o2 ) {
+                return o1.compareTo( o2 );
+            }
+        }, list );
+
+        Assert.assertEquals(list, sorted );
     }
 
 

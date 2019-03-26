@@ -3,7 +3,9 @@ package com.vbashur.datastructures;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * Created by vic on 3/25/19.
@@ -20,7 +22,10 @@ public class PriorityQueue<T extends Comparable> {
 
     public PriorityQueue(Comparator<T> comparator, Collection<T> items) {
         this.comparator = comparator;
-        this.items = new ArrayList<T>(items);
+        this.items = new ArrayList<T>();
+        for (T item : items) {
+            this.add( item );
+        }
     }
 
     public PriorityQueue(Collection<T> items) {
@@ -57,6 +62,23 @@ public class PriorityQueue<T extends Comparable> {
         if (items.size() > 1)
             return items.get(1);
         return null;
+    }
+
+    public static List<? extends Comparable> sort(Comparator<? extends Comparable> comparator, Collection<? extends Comparable> items) {
+        PriorityQueue pq = new PriorityQueue( comparator, items );
+        LinkedList<Comparable> st = new LinkedList<>(  );
+        while (pq.hasItems()) {
+            st.add( pq.poll() );
+        }
+        List<Comparable> col = new LinkedList<>(  );
+        while( !st.isEmpty() ) {
+            col.add( st.pollLast() );
+        }
+        return col;
+    }
+
+    public boolean hasItems() {
+        return items.size() > 1;
     }
 
     private void buildTreeUp(int index) {
