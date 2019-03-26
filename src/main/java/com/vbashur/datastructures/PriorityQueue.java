@@ -34,17 +34,69 @@ public class PriorityQueue<T extends Comparable> {
     }
 
     public void add(T item) {
-        //TODO
+        if (items.size() == 0) {
+            items.add(null);
+        }
+        items.add(item);
+        buildTreeUp(items.size() - 1);
     }
 
     public T poll() {
-        //TODO returns the top element removing it from the Queue
+        if (items.size() > 1) {
+            T peek = items.get(1);
+            items.set(1, items.get(items.size() - 1));
+            items.set(items.size() - 1, peek);
+            items.remove(items.size() - 1);
+            buildTreeDown(1);
+            return peek;
+        }
         return null;
     }
 
     public T peek() {
-        //TODO returns the top element without deletion from the Queue
+        if (items.size() > 1)
+            return items.get(1);
         return null;
+    }
+
+    private void buildTreeUp(int index) {
+        while (index > 1) {
+            buildHeapSubtree(index);
+            index /= 2;
+        }
+        buildHeapSubtree(1);
+    }
+
+    private void buildTreeDown(int index) {
+        while (index < items.size() && getSubtreeMaxElementIndex(index) != index) {
+            int subtreeMaxElementIndex = getSubtreeMaxElementIndex(index);
+            buildHeapSubtree(index);
+            index = subtreeMaxElementIndex;
+        }
+    }
+
+    private void buildHeapSubtree(int index) {
+        int subtreeMaxElementIndex = getSubtreeMaxElementIndex(index);
+        if (subtreeMaxElementIndex != index) {
+            T tmp = items.get(subtreeMaxElementIndex);
+            items.set(subtreeMaxElementIndex, items.get(index));
+            items.set(index, tmp);
+        }
+    }
+
+    private int getSubtreeMaxElementIndex(int rootIndex) {
+        T left = rootIndex * 2 > items.size() ? items.get(rootIndex * 2) : null;
+        T right = rootIndex * 2 + 1 > items.size() ? items.get(rootIndex * 2 + 1) : null;
+        T root = items.get(rootIndex);
+        int maxElementIndex = rootIndex;
+        if (left != null && right != null) {
+            maxElementIndex = left.compareTo(right) > 0 ? rootIndex * 2 : rootIndex * 2 + 1;
+        } else if (left != null) {
+            maxElementIndex = rootIndex * 2;
+        } else if (right != null) {
+            maxElementIndex = rootIndex * 2  + 1;
+        }
+        return items.get(rootIndex).compareTo(items.get(maxElementIndex)) > 0 ? rootIndex : maxElementIndex;
     }
 
 
