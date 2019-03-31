@@ -20,11 +20,19 @@ public class Solution {
         int w;
         int h;
         int d;
+        String name;
 
         public Box( int w, int h, int d ) {
             this.w = w;
             this.h = h;
             this.d = d;
+        }
+
+        public Box(String name, int w, int h, int d ) {
+            this.w = w;
+            this.h = h;
+            this.d = d;
+            this.name = name; // for test purposes
         }
 
         public boolean less( Box other ) {
@@ -36,10 +44,15 @@ public class Solution {
             }
             return true;
         }
+
+        public String toString() {
+            return name;
+        }
     }
 
     public int getStackedBoxes( List<Box> boxes ) {
         boxes.sort( boxComparator );
+        System.out.println(boxes);
         int maxSequence = Integer.MIN_VALUE;
         if( boxes == null || boxes.size() == 1 ) {
             return 1;
