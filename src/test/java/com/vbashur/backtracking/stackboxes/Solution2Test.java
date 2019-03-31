@@ -34,7 +34,25 @@ public class Solution2Test {
         Solution2.Box ski = new Solution2.Box("ski", 300, 40, 20 );
         Solution2.Box ipad = new Solution2.Box("ipad", 30, 20, 1 );
         int res = s.getStackedBoxes( new Solution2.Box[]{ipad, ski, owen, matches, tv, microwave} );
+        Assert.assertEquals( 3, res );
+    }
+
+
+    @Test
+    public void getStackedBoxesDina3Test() {
+        Solution2.Box tv = new Solution2.Box("tv", 150, 20, 100 );
+        Solution2.Box ski = new Solution2.Box("ski", 300, 40, 20 );
+        Solution2.Box ipad = new Solution2.Box("ipad", 30, 20, 1 );
+        int res = s.getStackedBoxes( new Solution2.Box[]{ipad, ski, tv} );
         Assert.assertEquals( 2, res );
     }
 
+    @Test
+    public void getStackedBoxesDina4Test() {
+        Solution2.Box tv = new Solution2.Box("container", 15000, 20000, 100000 );
+        Solution2.Box ski = new Solution2.Box("tv", 300, 40, 20 );
+        Solution2.Box ipad = new Solution2.Box("cellphone", 20, 10, 1 );
+        int res = s.getStackedBoxes( new Solution2.Box[]{ipad, ski, tv} );
+        Assert.assertEquals( 3, res );
+    }
 }
