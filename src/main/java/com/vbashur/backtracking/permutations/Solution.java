@@ -29,12 +29,11 @@ Example:
  * <p>
  * https://www.interviewbit.com/problems/permutations/
  */
-public class Solution {
+public class Solution<T> {
 
 
     public ArrayList<ArrayList<Integer>> permute( ArrayList<Integer> num ) {
         ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> permItem = new ArrayList<Integer>();
 
         result.add( new ArrayList<Integer>() );
 
@@ -62,6 +61,41 @@ public class Solution {
         }
 
         return result;
+    }
+
+
+    public void iterativeApproach(T[] elements, int n) {
+        int[] indexes = new int[n];
+        for (int i = 0; i < n; i++) {
+            indexes[i] = 0;
+        }
+        printArray(elements);
+        int i = 0;
+        while (i < n) {
+            if (indexes[i] < i) {
+                int indexToSwap = i % 2 == 0 ? 0 : indexes[i];
+                swap(elements, indexToSwap , i);
+                printArray(elements);
+                indexes[i]++;
+                i = 0;
+            } else {
+                indexes[i] = 0;
+                i++;
+            }
+        }
+    }
+
+    private void swap(T[] input, int a, int b) {
+        T tmp = input[a];
+        input[a] = input[b];
+        input[b] = tmp;
+    }
+
+    private void printArray(T[] input) {
+        System.out.print('\n');
+        for(int i = 0; i < input.length; i++) {
+            System.out.print(input[i]);
+        }
     }
 
     public void updatePermutationList( ArrayList<Integer> A, ArrayList<Integer> permItem, ArrayList<ArrayList<Integer>> permutations ) {

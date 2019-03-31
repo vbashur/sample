@@ -14,4 +14,13 @@ public class SolutionTest {
         Solution s = new Solution();
         System.out.print( s.permute( new ArrayList<>( Arrays.asList(1, 2,3, 4 ) ) ));
     }
+
+
+    @Test
+    public void permuteIterative() {
+        Solution<Integer> s = new Solution<>();
+        Integer[] arr = new Integer[]{1, 2,3, 4};
+        s.iterativeApproach(arr, 4 );
+    }
+
 }
