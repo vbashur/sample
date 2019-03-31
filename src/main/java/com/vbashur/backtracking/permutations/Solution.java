@@ -1,6 +1,7 @@
 package com.vbashur.backtracking.permutations;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /*
 Given a collection of numbers, return all possible permutations.
@@ -66,9 +67,7 @@ public class Solution<T> {
 
     public void iterativeApproach(T[] elements, int n) {
         int[] indexes = new int[n];
-        for (int i = 0; i < n; i++) {
-            indexes[i] = 0;
-        }
+        Arrays.fill(indexes, 0);
         printArray(elements);
         int i = 0;
         while (i < n) {
@@ -77,6 +76,8 @@ public class Solution<T> {
                 swap(elements, indexToSwap , i);
                 printArray(elements);
                 indexes[i]++;
+//                System.out.println();
+//                for (int h = 0; h < indexes.length; ++h ) {  System.out.print(indexes[h]); }
                 i = 0;
             } else {
                 indexes[i] = 0;
