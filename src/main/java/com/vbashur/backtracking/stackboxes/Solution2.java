@@ -49,6 +49,7 @@ public class Solution2 {
                 boxes.put(root, new LinkedList<>());
                 return true;
             }
+//            if (!root.less(box)) return false;
             return tryAddHelper(box, root);
         }
 
