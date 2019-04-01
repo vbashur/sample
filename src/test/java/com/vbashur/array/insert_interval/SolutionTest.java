@@ -70,5 +70,41 @@ public class SolutionTest {
 
     }
 
+    @Test
+    public void insertOut() throws Exception {
+
+        Interval interval15 = new Interval(1, 5);
+        Interval interval68 = new Interval(6, 8);
+
+        Solution s = new Solution();
+
+        List<Interval> intervalRes = s.insert(Arrays.asList(interval15), interval68);
+        Assert.assertNotNull(intervalRes);
+        Assert.assertEquals(2, intervalRes.size());
+        Assert.assertEquals(1, intervalRes.get(0).start);
+        Assert.assertEquals(5, intervalRes.get(0).end);
+        Assert.assertEquals(6, intervalRes.get(1).start);
+        Assert.assertEquals(8, intervalRes.get(1).end);
+    }
+
+    @Test
+    public void insertOut2() throws Exception {
+
+        Interval interval35 = new Interval(3, 5);
+        Interval interval12 = new Interval(1, 2);
+
+        Solution s = new Solution();
+
+        List<Interval> intervalRes = s.insert(Arrays.asList(interval35), interval12);
+        Assert.assertNotNull(intervalRes);
+        Assert.assertEquals(2, intervalRes.size());
+        Assert.assertEquals(1, intervalRes.get(0).start);
+        Assert.assertEquals(2, intervalRes.get(0).end);
+        Assert.assertEquals(3, intervalRes.get(1).start);
+        Assert.assertEquals(5, intervalRes.get(1).end);
+
+
+    }
+
 
 }

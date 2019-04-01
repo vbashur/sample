@@ -8,9 +8,7 @@ package com.vbashur.array.insert_interval;
 
 import com.vbashur.common.Interval;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Definition for an interval.
@@ -24,70 +22,64 @@ import java.util.List;
 public class Solution {
 
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
-        if (intervals.isEmpty()) return intervals;
-        ArrayList<Integer> intervalsArr = initIntervalList(intervals);
-        int end = newInterval.end ; //intervalsArr.size() <= newInterval.end ? newInterval.end : intervalsArr.size() - 1;
-        int newIntervalStartValue = newInterval.start;
-        if (!intervalsArr.get(newInterval.start).equals(Integer.valueOf(0))) {
-            newIntervalStartValue = intervalsArr.get(newInterval.start);
+        if (intervals.isEmpty() || newInterval == null) return intervals;
+        Integer[] intervalsArr = initIntervalList(intervals, newInterval);
+
+        int start = newInterval.start;
+        int end = newInterval.end;
+        if (intervalsArr[start] > 0) {
+            int index = start;
+            do {
+                intervalsArr[index] = intervalsArr[start];
+                ++index;
+            } while (index < end);
         }
-        boolean isOverlap = false;
-        for (int iter = newInterval.start; iter <= end; ++iter) {
-            if ((iter == end) && intervalsArr.size() > end && !intervalsArr.get(iter).equals(Integer.valueOf(0))) {
-                if ((iter + 1 < intervalsArr.size() )
-                        && intervalsArr.get(iter).equals(intervalsArr.get(iter + 1))) {
-                    isOverlap = true;
-                }
-            }
-            if (iter < intervalsArr.size()) {
-                intervalsArr.set(iter, newIntervalStartValue);
-            } else {
-                intervalsArr.add(newIntervalStartValue);
-            }
-        }
-        if (intervalsArr.size() <= end) {
-            int iter = intervalsArr.size();
-            while (iter <= end) {
-                intervalsArr.add(newIntervalStartValue);
-                ++iter;
-            }
-        } else if (isOverlap) {
-            int iter = end + 1;
-            while (iter < intervalsArr.size() && !intervalsArr.get(iter).equals(Integer.valueOf(0))) {
-                intervalsArr.set(iter, newIntervalStartValue);
-                ++iter;
-            }
+        if (intervalsArr[end] > 0) {
+            int index = end;
+            do {
+                intervalsArr[index] = intervalsArr[start];
+                ++index;
+            } while (index < intervalsArr.length && intervalsArr[index] != 0);
+        } else {
+            intervalsArr[end] = intervalsArr[start];
         }
         List<Interval> resIntervals = getIntervals(intervalsArr);
         return resIntervals;
     }
 
-    private ArrayList<Integer> initIntervalList(List<Interval> intervals) {
-        ArrayList<Integer> intervalList = new ArrayList<>();
-        int index = 0;
-        for (Interval interval : intervals) {
+    private Integer[] initIntervalList(List<Interval> ints, Interval newInterval) {
+        int bound = Math.max(ints.get(ints.size() - 1).end, newInterval.end) + 1;
+        Integer[] intervalArr = new Integer[bound];
+        Arrays.fill(intervalArr, 0);
+
+        int index = newInterval.start;
+        do {
+            intervalArr[index] = newInterval.start * (-1);
+            ++index;
+        } while (index <= newInterval.end);
+
+        for (Interval interval : ints) {
+            index = interval.start;
             do {
-                intervalList.add(0);
-                ++index;
-            } while (index < interval.start);
-            do {
-                intervalList.add(interval.start);
+                intervalArr[index] = interval.start;
                 ++index;
             } while (index <= interval.end);
         }
-        return intervalList;
+        return intervalArr;
     }
 
-    private List<Interval> getIntervals(ArrayList<Integer> intsArr) {
+    private List<Interval> getIntervals(Integer[] intsArr) {
         List<Interval> intervalList = new LinkedList<>();
-        for (int iter = 1; iter < intsArr.size(); ++iter) {
-            if (!intsArr.get(iter).equals(Integer.valueOf(0))) {
-                int start = intsArr.get(iter);
-                while (iter < intsArr.size() - 1 && intsArr.get(iter).equals(intsArr.get(iter + 1))) {
+        for (int iter = 1; iter < intsArr.length; ++iter) {
+            if (!intsArr[iter].equals(Integer.valueOf(0))) {
+                int start = intsArr[iter];
+                while (iter < intsArr.length
+                        && !intsArr[iter].equals(Integer.valueOf(0))
+                        && intsArr[iter].equals(start)) {
                     ++iter;
                 }
-                int end = iter;
-                Interval newInterval = new Interval(start, end);
+                int end = iter - 1;
+                Interval newInterval = new Interval(Math.abs(start), Math.abs(end));
                 intervalList.add(newInterval);
             }
         }
