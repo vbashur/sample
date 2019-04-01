@@ -106,5 +106,14 @@ public class SolutionTest {
 
     }
 
+    @Test
+    public void testLargeData() {
+        Interval interval15 = new Interval(1, 5);
+        Interval interval1011 = new Interval(10, 11);
+        Interval interval15Mio = new Interval(15, 2147483647);
+        Interval interval57 = new Interval(5, 7);
+
+    }
+
 
 }

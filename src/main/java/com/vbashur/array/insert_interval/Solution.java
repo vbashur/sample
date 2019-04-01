@@ -22,29 +22,59 @@ import java.util.*;
 public class Solution {
 
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
-        if (intervals.isEmpty() || newInterval == null) return intervals;
-        Integer[] intervalsArr = initIntervalList(intervals, newInterval);
+        if (intervals == null || intervals.isEmpty()) return Arrays.asList(newInterval);
+        if (newInterval == null) return intervals;
+        LinkedList<Interval> intervalList = new LinkedList<>();
+        intervalList.addAll(intervals);
+        Interval resInterval;
+        int start = Integer.MAX_VALUE;
+        int end = Integer.MIN_VALUE;
+        for (Interval interval : intervalList) {
+            if (interval.end >= newInterval.start
+                && interval.start < newInterval.start) {
+                start = interval.start;
+                end = Math.max(newInterval.end, end);
+            }
+            if (interval.start <= newInterval.end
+                    && interval.end > newInterval.end) {
+                start = Math.min(start, interval.start);
+                end = interval.end;
+            }// 1 3 25 6 9
+        }
+        if (start == Integer.MAX_VALUE && end == Integer.MIN_VALUE) {
+            if (newInterval.start < intervalList.get(0).start) {
+                intervalList.addFirst(newInterval);
+            } else {
+                intervalList.add(newInterval);
+            }
+            return intervalList;
+        }
+        if (start == Integer.MAX_VALUE) {
+            Iterator<Interval> iter = intervalList.iterator();
+            while (iter.hasNext()) {
+                Interval iv = iter.next();
+                if (iv.start < end) iter.remove();
+            }
+        }
+        if (end == Integer.MIN_VALUE) {
+            Iterator<Interval> iter = intervalList.iterator();
+            while (iter.hasNext()) {
+                Interval iv = iter.next();
+                if (iv.end > start) iter.remove();
+            }
+        }
 
-        int start = newInterval.start;
-        int end = newInterval.end;
-        if (intervalsArr[start] > 0) {
-            int index = start;
-            do {
-                intervalsArr[index] = intervalsArr[start];
-                ++index;
-            } while (index < end);
+        Iterator<Interval> iter = intervalList.iterator();
+        while (iter.hasNext()) {
+            Interval iv = iter.next();
+            if (iv.end <= end && iv.start >= start) iter.remove();
         }
-        if (intervalsArr[end] > 0) {
-            int index = end;
-            do {
-                intervalsArr[index] = intervalsArr[start];
-                ++index;
-            } while (index < intervalsArr.length && intervalsArr[index] != 0);
+        if (intervalList.size() > 0 && newInterval.start < intervalList.get(0).start) {
+            intervalList.addFirst(new Interval(start, end));
         } else {
-            intervalsArr[end] = intervalsArr[start];
+            intervalList.add(new Interval(start, end));
         }
-        List<Interval> resIntervals = getIntervals(intervalsArr);
-        return resIntervals;
+        return intervalList;
     }
 
     private Integer[] initIntervalList(List<Interval> ints, Interval newInterval) {
