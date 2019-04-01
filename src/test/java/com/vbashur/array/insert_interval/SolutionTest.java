@@ -54,18 +54,18 @@ public class SolutionTest {
     public void insertInMiddle() throws Exception {
 
         Interval interval13 = new Interval(1, 3);
-        Interval interval812 = new Interval(6, 9);
+        Interval interval69 = new Interval(6, 9);
 
         Interval interval25 = new Interval(2, 5);
         Solution s = new Solution();
 
-        List<Interval> intervalRes = s.insert(Arrays.asList(interval13, interval812), interval25);
+        List<Interval> intervalRes = s.insert(Arrays.asList(interval13, interval69), interval25);
         Assert.assertNotNull(intervalRes);
         Assert.assertEquals(2, intervalRes.size());
         Assert.assertEquals(1, intervalRes.get(0).start);
         Assert.assertEquals(5, intervalRes.get(0).end);
-        Assert.assertEquals(8, intervalRes.get(1).start);
-        Assert.assertEquals(12, intervalRes.get(1).end);
+        Assert.assertEquals(6, intervalRes.get(1).start);
+        Assert.assertEquals(9, intervalRes.get(1).end);
 
 
     }
