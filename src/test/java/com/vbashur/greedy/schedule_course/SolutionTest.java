@@ -11,22 +11,19 @@ import static org.junit.Assert.*;
  */
 public class SolutionTest {
     Solution s = new Solution();
+
     @Test
     public void scheduleCourse() throws Exception {
-
         int[][] input = new int[][]{{100, 200}, {200, 1300}, {1000, 1250}, {2000, 3200}};
         int res = s.scheduleCourse(input);
         Assert.assertEquals(3, res);
-
     }
 
     @Test
     public void scheduleCourseSimple() throws Exception {
-
         int[][] input = new int[][]{{5, 5}, {4, 6}, {2, 6}};
         int res = s.scheduleCourse(input);
-        Assert.assertEquals(3, res);
-
+        Assert.assertEquals(2, res);
     }
 
 }

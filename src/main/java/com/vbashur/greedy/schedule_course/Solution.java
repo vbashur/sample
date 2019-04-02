@@ -17,19 +17,15 @@ public class Solution {
         Arrays.sort(courses, new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
-
-
                 if (o1[1] == o2[1] && o1[0] == o2[0]) return 0;
-                if (o1[1] == o2[1] && o1[0] > o2[0]) return 1;
-                if (o1[1] > o2[1]) return 1;
+                if (o1[0] == o2[0] && o1[1] > o2[1]) return 1;
+                if (o1[0] > o2[0]) return 1;
                 return -1;
             }
         });
         int counter = 1;
         int accuDays = courses[0][0];
         for (int i = 1; i < courses.length; ++i) {
-//            System.out.print("[" + courses[i][0] + "-" + courses[i][1] + "]");
-//            System.out.println();
             int durationPrev = accuDays;
             int durationCurr = courses[i][0];
             int deadline = courses[i][1];
