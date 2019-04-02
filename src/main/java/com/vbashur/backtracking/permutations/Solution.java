@@ -2,6 +2,8 @@ package com.vbashur.backtracking.permutations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /*
 Given a collection of numbers, return all possible permutations.
@@ -31,6 +33,44 @@ Example:
  * https://www.interviewbit.com/problems/permutations/
  */
 public class Solution<T> {
+
+
+    public List<int[]> getPermutations(int[] arr) {
+        List<int[]> resList = new LinkedList<>();
+        int height = arr.length - 1;
+        int[] resArr = new int[arr.length];
+        getPermutationsHelper(height, arr, resArr, resList);
+        return resList;
+    }
+
+    public int[] getPermutationsHelper(int height, int[] arr, int[] resArr, List<int[]> resList) {
+        if (height == 0) {
+            resArr[height] = arr[height];
+            return Arrays.copyOf(resArr, resArr.length);
+        } else {
+            for (int iter = 0; iter < arr.length; ++iter) {
+                resArr[height] = arr[iter];
+                int[] relaxedArr = getRelaxedArr(arr, iter);
+                int [] perms = getPermutationsHelper(height - 1, relaxedArr, resArr, resList);
+                if (perms != null) {
+                    resList.add(perms);
+                }
+            }
+        }
+        return null;
+    }
+
+    public int[] getRelaxedArr(int[] initialArr, int index) {
+        int[] relaxedArr = new int[initialArr.length - 1];
+        int j = 0;
+        for (int i = 0; i < initialArr.length; ++i) {
+            if (i != index) {
+                relaxedArr[j] = initialArr[i];
+                ++j;
+            }
+        }
+        return relaxedArr;
+    }
 
 
     public ArrayList<ArrayList<Integer>> permute( ArrayList<Integer> num ) {
@@ -63,7 +103,6 @@ public class Solution<T> {
 
         return result;
     }
-
 
     public void iterativeApproach(T[] elements, int n) {
         int[] indexes = new int[n];

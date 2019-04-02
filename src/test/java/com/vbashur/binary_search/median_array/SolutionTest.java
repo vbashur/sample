@@ -25,5 +25,9 @@ public class SolutionTest {
         a = Arrays.asList(0,23);
         b = Arrays.asList();
         Assert.assertEquals(Double.valueOf(11.5), Double.valueOf(s.findMedianSortedArrays( a, b )));
+
+        a = Arrays.asList(1,3);
+        b = Arrays.asList(2);
+        Assert.assertEquals(Double.valueOf(2), Double.valueOf(s.findMedianSortedArrays( a, b )));
     }
 }
