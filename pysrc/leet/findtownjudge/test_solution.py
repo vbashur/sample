@@ -1,11 +1,12 @@
 from unittest import TestCase
-from findtownjudge import solution
+# from findtownjudge import solution
+from pysrc.leet.findtownjudge.solution import Solution
 
 
 class TestSolution(TestCase):
 
     def test_findJudge(self):
-        s = solution.Solution()
+        s = Solution()
         res = s.findJudge(3, [[1, 2], [2, 3], [1, 3]])
         self.assertEqual(3, res, "positive test")
 
