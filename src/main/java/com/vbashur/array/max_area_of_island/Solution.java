@@ -22,7 +22,7 @@ public class Solution {
     }
 
     private String getPointId(int i, int j) {
-        return String.valueOf(i) + String.valueOf(j);
+        return i + ":" + j;
     }
 
     private boolean isIslandPart(int[][] grid, int i, int j) {
