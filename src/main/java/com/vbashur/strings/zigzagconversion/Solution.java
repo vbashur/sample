@@ -3,6 +3,10 @@ package com.vbashur.strings.zigzagconversion;
 import java.util.LinkedList;
 import java.util.List;
 
+/*
+Created by vic on 22/08/19.
+https://leetcode.com/problems/zigzag-conversion/solution/
+ */
 public class Solution {
 
     public String convert(String s, int numRows) {
