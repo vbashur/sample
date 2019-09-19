@@ -11,7 +11,7 @@ public class Solution {
     public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
 
         Set<Edge> edges = new HashSet<Edge>();
-        List<Integer>[] conns = new List[n];
+        LinkedList<Integer>[] conns = new LinkedList[n];
         for (List<Integer> conn : connections) {
             conns[conn.get(0)].add(conn.get(1));
             conns[conn.get(1)].add(conn.get(0));
@@ -28,6 +28,15 @@ public class Solution {
     }
 
     public boolean isCritical(Edge e, Set<Edge> edges, List<Integer>[] conns) {
+        Integer start = e.getA();
+        Integer end = e.getB();
+        for (Integer mid : conns[start]) {
+            if (!mid.equals(end)) {
+                for (Integer n : conns[mid]) {
+
+                }
+            }
+        }
         return false;
     }
 
