@@ -20,24 +20,35 @@ public class Solution {
 
         List<List<Integer>> res = new LinkedList<>();
         for (Edge e : edges) {
-            if (isCritical(e, edges, conns)) {
+            Set<Integer> marked = new HashSet<Integer>();
+            marked.add(e.getA());
+            List<Integer> adjs = new LinkedList<Integer>();
+            for (Integer adj : conns[e.getA()]) {
+                if (!adj.equals(e.getB())) {
+                    adjs.add(adj);
+                }
+            }
+            if (isCritical(e.getA(), e.getB(), adjs, conns, marked)) {
                 res.add(e.toConn());
             }
         }
         return res;
     }
 
-    public boolean isCritical(Edge e, Set<Edge> edges, List<Integer>[] conns) {
-        Integer start = e.getA();
-        Integer end = e.getB();
-        for (Integer mid : conns[start]) {
-            if (!mid.equals(end)) {
-                for (Integer n : conns[mid]) {
-
+    public boolean isCritical(Integer a, Integer b, List<Integer> adjs, List<Integer>[] conns, Set<Integer> marked) {
+        for (Integer adj : conns[a]) {
+            if (!marked.contains(adj)) {
+                if (!adj.equals(b)) {
+                    marked.add(adj);
+                    if (isCritical(adj, b, conns[adj], conns, marked))
+                        return true;
+                } else {
+                    return true;
                 }
             }
         }
         return false;
+
     }
 
     class Edge {
