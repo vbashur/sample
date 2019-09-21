@@ -12,6 +12,9 @@ public class Solution {
 
         Set<Edge> edges = new HashSet<Edge>();
         LinkedList<Integer>[] conns = new LinkedList[n];
+        for (int i = 0; i < n; ++i) {
+            conns[i] = new LinkedList<>();
+        }
         for (List<Integer> conn : connections) {
             conns[conn.get(0)].add(conn.get(1));
             conns[conn.get(1)].add(conn.get(0));
@@ -28,19 +31,19 @@ public class Solution {
                     adjs.add(adj);
                 }
             }
-            if (isCritical(e.getA(), e.getB(), adjs, conns, marked)) {
-                res.add(e.toConn());
+            if (!isNotCritical(e.getA(), e.getB(), adjs, conns, marked)) {
+                res.add(Arrays.asList(e.getA(), e.getB()));
             }
         }
         return res;
     }
 
-    public boolean isCritical(Integer a, Integer b, List<Integer> adjs, List<Integer>[] conns, Set<Integer> marked) {
-        for (Integer adj : conns[a]) {
+    public boolean isNotCritical(Integer a, Integer b, List<Integer> adjs, List<Integer>[] conns, Set<Integer> marked) {
+        for (Integer adj : adjs) {
             if (!marked.contains(adj)) {
                 if (!adj.equals(b)) {
                     marked.add(adj);
-                    if (isCritical(adj, b, conns[adj], conns, marked))
+                    if (isNotCritical(adj, b, conns[adj], conns, marked))
                         return true;
                 } else {
                     return true;

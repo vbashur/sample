@@ -8,10 +8,10 @@ public class SolutionTest {
 
     @Test
     public void maxNumberOfBalloons() {
-        Solution s = new Solution();
-        System.out.println(s.maxNumberOfBalloons("nlaebolko"));
-        System.out.println(s.maxNumberOfBalloons("loonbalxballpoon"));
-
-        System.out.println(s.maxNumberOfBalloons("loonba"));
+//        Solution s = new Solution();
+//        System.out.println(s.maxNumberOfBalloons("nlaebolko"));
+//        System.out.println(s.maxNumberOfBalloons("loonbalxballpoon"));
+//
+//        System.out.println(s.maxNumberOfBalloons("loonba"));
     }
 }
