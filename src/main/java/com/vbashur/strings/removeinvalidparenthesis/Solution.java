@@ -13,34 +13,34 @@ public class Solution {
 
         Deque<String> words = new LinkedList<>();
         Set<String> res = new HashSet<>();
-        words.push(s);
         boolean isFound = false;
-        do {
-            List<String> wordsToAdd = new LinkedList<>();
-            while (!words.isEmpty()) {
-                String w = words.pollFirst();
+        words.addFirst(s);
+        while(!words.isEmpty() && !isFound) {
+
+            List<String> wordsToConsider = new LinkedList<>();
+            for (String w: words) {
                 if (isValid(w)) {
                     isFound = true;
                     res.add(w);
-                } else if (!isFound) {
+                }
+            }
+            if (!isFound) {
+                while (!words.isEmpty()) {
+                    String w = words.pollFirst();
                     for (int iter = 0; iter < w.length(); ++iter) {
                         StringBuilder sb = new StringBuilder();
                         sb.append(w.substring(0, iter));
                         sb.append(w.substring(iter + 1));
-                        wordsToAdd.add(sb.toString());
+                        wordsToConsider.add(sb.toString());
                     }
                 }
+                words.addAll(wordsToConsider);
             }
-            if (!isFound) {
-                words.addAll(wordsToAdd);
-            }
-        } while (!words.isEmpty());
+        }
         return new LinkedList<>(res);
     }
 
-    private List<String> getWordsToCheck(List<String> input) {
-        return input;
-    }
+
 
 
     public boolean isValid(String s) {
