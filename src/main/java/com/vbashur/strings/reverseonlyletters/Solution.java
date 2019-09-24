@@ -11,8 +11,8 @@ public class Solution {
         int left = 0;
         int right = cs.length - 1;
         while (left < right) {
-            if (isLetter(cs[left])){
-                if (isLetter(cs[right])){
+            if (isLetter(cs[left])) {
+                if (isLetter(cs[right])) {
                     swap(left, right, cs);
                     --right;
                     ++left;
@@ -24,14 +24,14 @@ public class Solution {
             }
         }
         StringBuilder res = new StringBuilder();
-        for (int i =0; i < cs.length; ++i) {
+        for (int i = 0; i < cs.length; ++i) {
             res.append(cs[i]);
         }
         return res.toString();
     }
 
     boolean isLetter(char c) {
-        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ;
+        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
     }
 
     void swap(int l, int r, char[] cs) {
