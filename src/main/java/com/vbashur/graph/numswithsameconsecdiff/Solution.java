@@ -1,9 +1,7 @@
 package com.vbashur.graph.numswithsameconsecdiff;
 
 
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Added on 24/09/19
@@ -12,66 +10,49 @@ import java.util.List;
 public class Solution {
 
     public int[] numsSameConsecDiff(int N, int K) {
-        int[] digits = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] digits = new int[]{0,1, 2, 3, 4, 5, 6, 7, 8, 9};
         if (N < 2) {
             if (K == 0) {
                 return digits;
             }
             return new int[0];
         }
-        // OMG https://leetcode.com/problems/numbers-with-same-consecutive-differences/discuss/370543/Java-Using-Queue
-        List<LinkedList<Integer>> nums = new LinkedList<>();
-        for (int min = 9; min >= 0; --min) {
-            if (min - K >= 0) {
-
-                LinkedList<Integer> combs = new LinkedList<>();
-                if (min - K > 0) {
-                    combs.add(min - K);
-                    combs.add(min);
-                    nums.add(combs);
-                    System.out.println("->" + combs);
-                    combs.clear();
-                }
-                combs.add(min);
-                combs.add(min - K);
-                nums.add(combs);
-                System.out.println("->" + combs);
-
-            }
+        LinkedList<LinkedList<Integer>> queue = new LinkedList<>();
+        for (int iter = 1; iter < 10; ++iter) {
+            LinkedList<Integer> ll = new LinkedList<Integer>();
+            ll.addLast(iter);
+            queue.add(ll);
         }
-//        for (int i = 1; i < 10; ++i) {
-//            int numToAdd = i + K;
-//            if (i + K < 10) {
-//                LinkedList<Integer> combs = new LinkedList<>();
-//                combs.add(i);
-//                combs.add(K - i);
-//                nums.add(combs);
-//            }
-//            if ()
-//        }
-        int counter = 3;
-        while (counter <= N) {
-            for (int i = 0; i < nums.size(); ++i) {
-                LinkedList<Integer> targetList = nums.get(i);
+        for (int i = 2; i <= N; i++) {
+            Queue<LinkedList<Integer>> nq = new LinkedList<>();
+            while (!queue.isEmpty()) {
+                LinkedList<Integer> targetList = queue.poll();
+
                 int numToAdd = targetList.peekLast() + K;
-                boolean firstDetected = false;
                 if (numToAdd < 10) {
-                    targetList.addLast(numToAdd);
+                    LinkedList<Integer> newList = new LinkedList<>();
+                    newList.addAll(targetList);
+                    newList.addLast(numToAdd);
+                    nq.add(newList);
                 }
                 numToAdd = targetList.peekLast() - K;
                 if (numToAdd >= 0) {
-                    targetList.addLast(numToAdd);
+
+                    LinkedList<Integer> newList = new LinkedList<>();
+                    newList.addAll(targetList);
+                    newList.addLast(numToAdd);
+                    nq.add(newList);
                 }
 
-                System.out.println("->" + targetList);
             }
-            ++counter;
+            queue.addAll(nq);
         }
-        return getRes(nums, N);
+
+
+        return getRes(queue, N);
     }
 
-    private int[] getRes(List<LinkedList<Integer>> nums, int length) {
-//        int limit = (int) Math.pow(10, length) - 1;
+    private int[] getRes(LinkedList<LinkedList<Integer>> nums, int length) {
         int[] res = new int[nums.size()];
         for (int i = 0; i < res.length; ++i) {
             res[i] = 0;
@@ -82,12 +63,20 @@ public class Solution {
                 List<Integer> arr = nums.get(i);
                 int curNum = (int) Math.pow(10, counter - 1) * arr.get(arr.size() - counter);
                 res[i] = res[i] + curNum;
-//                System.out.print(res[i]);
-//                System.out.println(":"+curNum);
             }
             ++counter;
         }
-        return res;
+        Set<Integer> s= new LinkedHashSet<>();
+        for (int i = 0; i < res.length; ++i) {
+            s.add(res[i]);
+        }
+
+        int[] arr= new int[s.size()];
+        Iterator<Integer> iter = s.iterator();
+        for (int i = 0 ; i < arr.length; ++i) {
+            arr[i] = iter.next();
+        }
+        return arr;
 
     }
 }

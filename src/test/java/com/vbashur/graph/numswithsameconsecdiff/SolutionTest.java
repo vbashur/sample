@@ -12,7 +12,7 @@ public class SolutionTest {
     @Test
     public void numsSameConsecDiff() {
         Solution s = new Solution();
-        int[] arr = s.numsSameConsecDiff(3, 2);
+        int[] arr = s.numsSameConsecDiff(3, 7);
         System.out.println("__");
         for (int i =0; i < arr.length; ++i) {
             System.out.println(arr[i]);
