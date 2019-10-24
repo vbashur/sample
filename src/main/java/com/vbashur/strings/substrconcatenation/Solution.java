@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * added on 24/10/19
  * https://leetcode.com/problems/substring-with-concatenation-of-all-words/
- *
  */
 public class Solution {
 
@@ -17,23 +16,29 @@ public class Solution {
             return res;
         }
         int wordLength = words[0].length();
-        int wholeWordLength = wordLength * words.length;
         List<String> wSet = new LinkedList<>();
         wSet.addAll(Arrays.asList(words));
         for (int iter = 0; iter < s.length() - wordLength; ++iter) {
-            String word = s.substring(iter, wordLength);
-            if (wSet.contains(word)) {
-                int index = iter;
-                while(index >= 0 && !wSet.isEmpty()) {
+            int index = iter;
+            while (index < (s.length() - wordLength) && !wSet.isEmpty()) {
+                String word = s.substring(index, index + wordLength);
+                if (wSet.contains(word)) {
                     wSet.remove(word);
                     if (wSet.isEmpty()) {
-                        res.add(index);
+                        res.add(iter);
+                        wSet.clear();
+                        wSet.addAll(Arrays.asList(words));
+                        break;
                     }
-
-
+                    index += wordLength;
+                } else {
+                    wSet.clear();
+                    wSet.addAll(Arrays.asList(words));
+                    break;
                 }
             }
 
         }
+        return res;
     }
 }
