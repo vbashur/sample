@@ -13,7 +13,8 @@ public class SolutionTest {
     public void testSolution() {
         Solution s  = new Solution();
 
-        List<Integer> res = s.findSubstring("barfoothefoobarman", new String[] {"bar", "foo"});
+        List<Integer> res = s.findSubstring("wordgoodgoodgoodbestword", new String[] {"word","good","best","good"});
+        res = s.findSubstring("a", new String[] {"a"});
 
         System.out.println(res);
     }
