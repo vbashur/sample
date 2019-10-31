@@ -1,60 +1,74 @@
 package com.vbashur.array.mergeoverlapintervals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class Solution {
 
     public ArrayList<Interval> merge(ArrayList<Interval> intervals) {
-        ArrayList<Interval> res = new ArrayList<Interval>();
+        Set<IntervalExt> res = new TreeSet<IntervalExt>((in1,in2) -> in1.start != in2.start ?
+                in1.start - in2.start : in2.end - in1.end);
         if (intervals == null || intervals.size() == 0) {
-            return res;
+            return new ArrayList<>(res);
         }
-        res.add(intervals.iterator().next());
-        for (int iter = 0; iter< intervals.size(); ++iter) {
-            res = checkOverlap(res, intervals.get(iter));
+        res.add(new IntervalExt(intervals.iterator().next()));
+        for (int iter = 1; iter< intervals.size(); ++iter) {
+            res = checkOverlap(res, new IntervalExt(intervals.get(iter)));
         }
 
-        Solution.Interval i1 = new Solution.Interval(5,97);
-        Solution.Interval i2 = new Solution.Interval(5,97);
-        Solution.Interval i3 = new Solution.Interval(5,97);
-        Solution.Interval i4 = new Solution.Interval(5,97);
-        Solution s  = new Solution();
-        res.add(i1);
-        res.add(i2);
-        res.add(i3);
-        res.add(i4);
-        if (res.size() > 1) {
-            for (int iter = 1; iter < res.size(); ++iter) {
-                res = checkOverlap(res, res.get(iter));
-            }
-        }
-        res.sort((in1,in2) -> in1.start != in2.start ? in1.start - in2.start : in2.end - in1.end );
-        return res;
+//        res.stream().sorted((in1,in2) -> in1.start != in2.start ? in1.start - in2.start : in2.end - in1.end );
+
+        ArrayList<Interval> arl = new ArrayList<>(res);
+        arl.sort((in1,in2) -> in1.start != in2.start ?
+                in1.start - in2.start : in2.end - in1.end);
+        return arl;
     }
 
-    public ArrayList<Interval> checkOverlap(ArrayList<Interval> res, Interval interval) {
+    public Set<IntervalExt> checkOverlap(Set<IntervalExt> res, IntervalExt interval) {
         boolean isAdded = false;
 
-        ArrayList<Interval> newRes = new ArrayList<>();
-        for (int iter = 0; iter < res.size(); ++iter) {
-            Interval in = res.get(iter);
-            if ((interval.start <= in.end && interval.start >= in.start )
-            ||   (interval.end <= in.end && interval.end >= in.start )) {
-                int start = interval.start < in.start ? interval.start : in.start;
-                int end = interval.end > in.end ? interval.end : in.end;
+        Set<IntervalExt> newRes = new HashSet<>();
+        for (Interval in : res) {
+            if (! (Math.max(interval.start, in.start) >Math.min(interval.end, in.end))) {
+                int start = Math.min(interval.start, in.start);
+                int end = Math.max(interval.end, in.end);
                 isAdded = true;
-                if (interval.start != in.start && interval.end != in.end){
-                    newRes.add(new Interval(start, end));
-                }
+                interval = new IntervalExt(start, end);
+                newRes.add(interval);
             } else {
-                newRes.add(in);
+                newRes.add(new IntervalExt(in));
             }
         }
         if (!isAdded) {
-            newRes.add(interval);
+            newRes.add(new IntervalExt(interval));
         }
         return newRes;
+    }
+
+    class IntervalExt extends Interval {
+
+        IntervalExt(Interval i) {
+            super(i.start, i.end);
+        }
+
+        IntervalExt(int start, int end) {
+            super(start, end);
+        }
+        @Override
+        public int hashCode() {
+            return super.start + super.end;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj != null && obj instanceof Interval) {
+                if (obj == this) {
+                    return true;
+                }
+                Interval in = ((Interval) obj);
+                return in.start == this.start && in.end == this.end;
+            }
+            return false;
+        }
     }
 
     /**
