@@ -17,6 +17,6 @@ public class SolutionTest {
         input.add(34);
         input.add(67);
         input.add(90);
-        s.books(input, 2);
+        System.out.println(s.books(input, 2));
     }
 }

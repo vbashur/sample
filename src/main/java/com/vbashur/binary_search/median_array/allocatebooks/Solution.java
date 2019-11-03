@@ -15,7 +15,7 @@ public class Solution {
         }
 
         int best = Integer.MAX_VALUE;
-        for (int i = 0; i <A.size() - B; ++i) {
+        for (int i = 0; i <A.size(); ++i) {
             best = Math.min(best, findBest(B - 1, i, new int[B], A, best));
 
         }
@@ -27,9 +27,13 @@ public class Solution {
         data[data.length - step - 1] = index;
         if (step == 0) {
             best = Math.min(best, findMaxPartition(data, input));
+            for (int datum : data) {
+                System.out.print(datum +  " ");
+            }
+            System.out.println();
         } else {
-            while(index++  < input.size()) {
-                best = findBest(step - 1, index, data, input, best);
+            while(index + 1  < input.size()) {
+                best = findBest(step - 1, ++index, data, input, best);
 
             }
         }
@@ -38,22 +42,22 @@ public class Solution {
 
     private int findMaxPartition(int[] data, ArrayList<Integer> input) {
         int maxPartition = Integer.MIN_VALUE;
-        int[] sums = new int[data.length];
+        int[] sums = new int[data.length + 2];
+
+        for (int j = 0; j <= data[0]; ++j) {
+            sums[0] += input.get(j);
+        }
 
         for (int i = 1; i < data.length; ++i) {
-            int sum = 0;
             for (int j = data[i - 1]; j < data[i]; ++j) {
-                sum += input.get(j);
-            }
-            sums[i-1] = sum;
-            if (i + 1 == data.length) {
-                sum = 0;
-                for (int j = data[i]; j < input.size(); ++j) {
-                    sum += input.get(j);
-                }
-                sums[i] = sum;
+                sums[i] += input.get(j);
             }
         }
+
+        for (int j = data[data.length - 1]; j < input.size(); ++j) {
+            sums[sums.length - 1] += input.get(j);
+        }
+
         for (int sum : sums) {
             if (sum > maxPartition) {
                 maxPartition = sum;
