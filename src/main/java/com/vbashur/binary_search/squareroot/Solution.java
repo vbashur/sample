@@ -1,27 +1,27 @@
 package com.vbashur.binary_search.squareroot;
 
+// https://www.interviewbit.com/problems/square-root-of-integer/
 public class Solution {
 
     public int sqrt(int a) {
         if (a == 0) return 0;
         if (a < 4) return 1;
-        return binarySearch(0, a, a);
+        if (a < 9) return 2;
+        return binarySearch(0, a/2, a);
 
     }
 
-    private int binarySearch(int start, int end, int target) {
+    private int binarySearch(int start, int end, int a) {
         int mid = (start + end) / 2;
-        int sqres = mid * mid;
-        int sqres2 = (mid + 1) * (mid +1);
-        while (sqres != target && !(sqres < target && sqres2 > target)) {
-            if (sqres > target) {
+        while ((mid != a / mid)
+                && !(mid < (a / mid)
+                    && (mid + 1) > (a / (mid + 1)))) {
+            if (mid > a / mid) {
                 end = mid;
             } else {
                 start = mid;
             }
             mid = (start + end) / 2;
-            sqres = mid * mid;
-            sqres2 = (mid + 1) * (mid +1);
         }
         return mid;
     }
