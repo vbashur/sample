@@ -1,10 +1,8 @@
-package com.vbashur.binary_search.median_array.allocatebooks;
+package com.vbashur.binary_search.allocatebooks;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 public class SolutionTest {
 

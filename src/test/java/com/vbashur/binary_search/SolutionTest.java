@@ -1,10 +1,9 @@
-package com.vbashur.binary_search.median_array;
-
-import static org.junit.Assert.*;
+package com.vbashur.binary_search;
 
 import java.util.Arrays;
 import java.util.List;
 
+import com.vbashur.binary_search.median_array.Solution;
 import org.junit.Assert;
 import org.junit.Test;
 

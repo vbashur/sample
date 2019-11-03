@@ -1,4 +1,4 @@
-package com.vbashur.binary_search.median_array.allocatebooks;
+package com.vbashur.binary_search.allocatebooks;
 
 import java.util.ArrayList;
 
