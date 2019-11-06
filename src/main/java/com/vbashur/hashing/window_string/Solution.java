@@ -3,6 +3,8 @@ package com.vbashur.hashing.window_string;
 import java.util.HashMap;
 import java.util.Map;
 
+//https://leetcode.com/problems/minimum-window-substring/solution/
+//https://www.interviewbit.com/problems/window-string/
 public class Solution {
 
     public static void main(String[] args) {
