@@ -11,7 +11,6 @@ import java.util.Set;
 public class Solution {
 
     public int[] findRedundantConnection(int[][] edges) {
-        Set<Integer> marked = new HashSet<>();
         Map<Integer, Integer> unions = new HashMap<>();
         int[] res = new int[2];
         for (int iter = 0; iter < edges.length; ++iter) {
@@ -20,23 +19,27 @@ public class Solution {
             if (isSameGraph(unions, u, v)) {
                 res[0] = u;
                 res[1] = v;
-            }
-            if (unions.containsKey(u)) {
-                unions.put(v, u);
             } else {
-                unions.put(u, v);
+                if (unions.containsKey(u)) {
+                    Integer root = getRoot(unions, u);
+                    unions.put(v, root);
+                } else {
+                    Integer root = getRoot(unions, v);
+                    unions.put(u, root);
+                }
             }
         }
         return res;
     }
 
     private boolean isSameGraph(Map<Integer, Integer> unions, int u, int v) {
+        return getRoot(unions, u) == getRoot(unions, v);
+    }
+
+    private Integer getRoot(Map<Integer, Integer> unions, int u) {
         while (unions.containsKey(u)) {
             u = unions.get(u);
         }
-        while (unions.containsKey(v)) {
-            v = unions.get(v);
-        }
-        return u == v;
+        return u;
     }
 }
