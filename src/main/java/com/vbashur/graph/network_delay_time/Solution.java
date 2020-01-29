@@ -27,6 +27,17 @@ public class Solution {
     Input: times = [[2,1,1],[2,3,1],[3,4,1]], N = 4, K = 2
     Output: 2
 
+
+
+    Input:
+[[1,2,1],[2,3,2],[1,3,2]]
+3
+1
+Output:
+3
+Expected:
+2
+
      */
     public int networkDelayTime(int[][] times, int N, int K) {
 
@@ -57,7 +68,7 @@ public class Solution {
                         int newRouteValue = routes.get(key) + routes.get(nodeId);
                         routes.put(key, Math.min(routeValue, newRouteValue));
                     } else {
-                        routes.put(key, nodeRoute[1]);
+                        routes.put(key, routeValue);
                         queue.addLast(nodeRoute[0]);
                     }
                 }
