@@ -65,8 +65,7 @@ Expected:
                     int key = nodeRoute[0];
                     int routeValue = nodeRoute[1] + routes.get(nodeId);
                     if (routes.containsKey(key)) {
-                        int newRouteValue = routes.get(key) + routes.get(nodeId);
-                        routes.put(key, Math.min(routeValue, newRouteValue));
+                        routes.put(key, Math.min(routeValue, routes.get(key)));
                     } else {
                         routes.put(key, routeValue);
                         queue.addLast(nodeRoute[0]);
