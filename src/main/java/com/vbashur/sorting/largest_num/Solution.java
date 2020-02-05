@@ -17,7 +17,10 @@ Note: The result may be very large, so you need to return a string instead of an
  */
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.TreeMap;
@@ -28,6 +31,25 @@ import java.util.TreeMap;
  * https://leetcode.com/problems/largest-number/
  */
 public class Solution {
+
+
+    public String largestNumber2(int[] nums) {
+
+        List<String> input = new LinkedList<>();
+        for (int num : nums) {
+            input.add(String.valueOf(num));
+        }
+        input.sort((n1, n2) -> {
+
+            String num1 = n1 + n2;
+            String num2 = n2 + n1;
+            return num2.compareTo(num1);
+        });
+        if (input.size() > 0 && input.get(0).equals("0")) {
+            return "0";
+        }
+        return input.stream().reduce( (m1, m2) -> m1 + m2).orElse("");
+    }
 
 
     public String largestNumber( int[] nums ) {
